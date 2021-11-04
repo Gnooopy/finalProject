@@ -9,20 +9,17 @@
 
 # 프로젝트 개발 환경
   - Window10, MacOS (Macbook Air 2015, MacOS: Big Sur 11.6)
-
   - Visual Studio Code
-
   - Java 1.8
-  - STS (version : 9999.0 released)
+  - Spring Tool Suite 3
   - Tomcat 9.0
-  - ORACLE (SQLdeveloper)
+  - OracleDB (SQLdeveloper)
 
 # 프로젝트 내 담당파트
   - 일정계획(Gantt Chart 및 Kanban Board)
   - 벤치마킹 조사
   - Lean Canvas 작성
   - 사용자 요구사항 작성
-
   - 회원가입, 로그인 페이지 UI 작업
   - 아래 3개 페이지 CRUD, 댓글 CD 및 댓글 수 카운트
     - 푸드트럭 요청 페이지
