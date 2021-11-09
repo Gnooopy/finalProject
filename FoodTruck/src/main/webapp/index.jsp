@@ -8,7 +8,6 @@ JSP 페이지 상단에 request.setCharacterEncoding 을 명시한다. -->
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-
 <!-- 2. GET 전송시 한글깨짐
 Tomcat의 server.xml에 URIEncoding 옵션을 추가해 준다.  -->
 <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000"
