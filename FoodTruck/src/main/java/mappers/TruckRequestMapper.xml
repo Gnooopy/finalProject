@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="RequestDAO">
+
+	<insert id="insertRequest" parameterType="member">
+		INSERT INTO truckrequest (requestSeq, requestWriter, requestTitle, requestDate, requestLocation, requestContent)
+			VALUES (requestSeq_seq.nextval, #{requestWriter}, #{requestTitle}, #{requestDate}, #{requestLocation}, #{requestContent})
+	</insert>
+	
+	<update id="updateRequest" parameterType="member">
+		UPDATE truckrequest
+			SET requestTitle = #{requestTitle}, requestDate = #{requestDate}, requestLocation = #{requestLocation}, 
+				requestContent = #{requestContent}
+				WHERE requestSeq = #{requestSeq}
+	</update>
+	
+	<delete id="deleteRequest" parameterType="member">
+		DELETE FROM truckrequest
+			WHERE requestSeq = #{requestSeq}
+	</delete>
+	
+	<select id="getRequest" parameterType="member" resultType="member">
+		SELECT *
+			FROM truckrequest
+				WHERE requestSeq = #{requestSeq}
+	</select>
+	
+	<select id="getRequestList" resultType="member">
+		SELECT *
+			FROM truckrequest
+				ORDER BY requestSeq DESC
+	</select>
+	
+	
+	
+	
+	<insert id="insertRecruit" parameterType="member">
+		INSERT INTO truckrecruit (recruitSeq, recruitWriter, recruitTitle, recruitDate, recruitLocation, recruitContent)
+			VALUES (recruitseq_seq.nextval, #{recruitWriter}, #{recruitTitle}, #{recruitDate}, #{recruitLocation}, #{recruitContent})
+	</insert>
+	
+	<update id="updateRecruit" parameterType="member">
+		UPDATE truckrecruit
+			SET recruitTitle = #{recruitTitle}, recruitDate = #{recruitDate}, recruitLocation = #{recruitLocation},
+				recruitContent = #{recruitContent}
+				WHERE recruitSeq = #{recruitSeq}
+	</update>
+	
+	<delete id="deleteRecruit" parameterType="member">
+		DELETE FROM truckrecruit
+			WHERE recruitSeq = #{recruitSeq}
+	</delete>
+	
+	<select id="getRecruit" parameterType="member" resultType="member">
+		SELECT *
+			FROM truckrecruit
+				WHERE recruitSeq = #{recruitSeq}
+	</select>
+	
+	<select id="getRecruitList" resultType="member">
+		SELECT *
+			FROM truckrecruit
+				ORDER BY recruitSeq DESC
+	</select>
+	
+	
+	
+	
+	<insert id="insertComment" parameterType="member">
+		INSERT INTO contentcomment (commentSeq, commentWriter, commentContent, requestSeq, commentCnt)
+			VALUES (commentseq_seq.nextval, #{commentWriter}, #{commentContent}, #{requestSeq}, #{commentCnt})
+	</insert>
+	
+	<delete id="deleteComment" parameterType="member">
+		DELETE FROM contentcomment
+			WHERE commentSeq = #{commentSeq}
+	</delete>
+	
+	<select id="getCommentList" resultType="member">
+		SELECT *
+			FROM contentcomment
+				WHERE requestSeq = #{requestSeq}
+					ORDER BY commentSeq DESC
+	</select>
+	
+	
+	
+	<insert id="insertComment2" parameterType="member">
+		INSERT INTO recruitcomment (recruitcmtSeq, recruitcmtWriter, recruitcmtContent, recruitSeq, recruitcmtCnt)
+			VALUES (recruitcmtseq_seq.nextval, #{recruitcmtWriter}, #{recruitcmtContent}, #{recruitSeq}, #{recruitcmtCnt})
+	</insert>
+	
+	<delete id="deleteComment2" parameterType="member">
+		DELETE FROM recruitcomment
+			WHERE recruitcmtSeq = #{recruitcmtSeq}
+	</delete>
+	
+	<select id="getCommentList2" resultType="member">
+		SELECT *
+			FROM recruitcomment
+				WHERE recruitSeq = #{recruitSeq}
+					ORDER BY recruitcmtCnt DESC
+	</select>
+	
+	<select id="goIntroTruck" resultType="member">
+		SELECT *
+			FROM addtruck 
+	</select>
+	
+	
+	
+	
+	
+</mapper> 
+

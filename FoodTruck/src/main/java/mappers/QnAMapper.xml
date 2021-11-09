@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="QnADAO">
+
+
+<!-- 	qna   -->
+	<insert id="insertQnA" parameterType="member" >
+		INSERT INTO QnA ( 
+		seq,userId, qnaTitle, qnaContent ,
+		<if test="qnaContent_photo != null">qnaContent_photo,</if> 
+		qnaContentdate)
+		VALUES( 
+		QnA_seq.nextval,#{userId}, #{qnaTitle}, #{qnaContent},
+		<if test="qnaContent_photo != null">#{qnaContent_photo}, </if>  
+		sysdate)
+	</insert>
+	
+	<select id="getQnAList" resultType="member">
+		select 
+		    seq as qnaSeq,
+		    userid as userId,
+		    qnatitle as qnaTitle,
+		    qnaContent as qnaContent,
+		    qnaContent_photo as qnaContent_photo,
+		    qnaContentdate as qnaContentdate,
+		    qnaComment as qnaComment
+		from QnA
+		ORDER BY seq DESC
+	</select>
+	
+	
+	
+	
+	<update id="updateQnA" parameterType="member">
+		UPDATE QnA
+			SET qnaTitle = #{qnaTitle},  qnaContent = #{qnaContent}
+				WHERE seq = #{qnaSeq}
+	</update>
+	
+	<delete id="deleteQnA" parameterType="member">
+		DELETE FROM QnA
+			WHERE seq = #{qnaSeq}
+	</delete>
+	
+	<select id="getQnA" parameterType="member" resultType="member">
+		SELECT *
+			FROM QnA
+				WHERE seq = #{qnaSeq}
+	</select>
+	
+	<update id="insertQnAComment" parameterType="member">
+		UPDATE QnA
+			SET qnaComment = #{qnaComment}
+				WHERE seq = #{qnaSeq}
+		
+	</update>
+	
+	
+	
+	
+	
+<!-- 	공공기관   -->
+	<insert id="insertBall" parameterType="member" >
+		INSERT INTO Ball ( 
+		ballseq,userId, ballTitle, ballContent ,
+		<if test="ballContent_photo != null">ballContent_photo,</if> 
+		ballContentdate)
+		VALUES( 
+		Ball_seq.nextval,#{userId}, #{ballTitle}, #{ballContent},
+		<if test="ballContent_photo != null">#{ballContent_photo}, </if>  
+		sysdate)
+	</insert>
+	
+	<select id="getBallList" resultType="member">
+		select
+		*
+		from Ball
+		ORDER BY ballseq DESC
+	</select>
+	
+	<update id="updateBall" parameterType="member">
+		UPDATE Ball
+			SET ballTitle = #{ballTitle},  ballContent = #{ballContent}
+				WHERE ballseq = #{ballSeq}
+	</update>
+	
+	<delete id="deleteBall" parameterType="member">
+		DELETE FROM Ball
+			WHERE ballseq = #{ballSeq}
+	</delete>
+	
+	<select id="getBall" parameterType="member" resultType="member">
+		SELECT *
+			FROM Ball
+				WHERE ballseq = #{ballSeq}
+	</select>
+	
+	<update id="insertBallComment" parameterType="member">
+		UPDATE Ball
+			SET ballComment = #{ballComment}
+				WHERE ballseq = #{ballSeq}
+		
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 	홍보 협찬 요청 신청    -->
+	<insert id="insertPromotion" parameterType="member" >
+		INSERT INTO Promotion ( 
+		promotionseq,userId, promotionTitle, promotionContent ,
+		<if test="promotionContent_photo != null">PromotionContent_photo,</if> 
+		promotionContentdate)
+		VALUES( 
+		promotion_seq.nextval,#{userId}, #{promotionTitle}, #{promotionContent},
+		<if test="promotionContent_photo != null">#{PromotionContent_photo}, </if>  
+		sysdate)
+	</insert>
+	
+	<select id="getPromotionList" resultType="member">
+		select
+		*
+		from Promotion
+		ORDER BY Promotionseq DESC
+	</select>
+	
+	<update id="updatePromotion" parameterType="member">
+		UPDATE Promotion
+			SET promotionTitle = #{promotionTitle},  promotionContent = #{promotionContent}
+				WHERE promotionseq = #{promotionseq}
+	</update>
+	
+	<delete id="deletePromotion" parameterType="member">
+		DELETE FROM Promotion
+			WHERE promotionseq = #{promotionseq}
+	</delete>
+	
+	<select id="getPromotion" parameterType="member" resultType="member">
+		SELECT *
+			FROM Promotion
+				WHERE promotionseq = #{promotionseq}
+	</select>
+	
+	<update id="insertPromotionComment" parameterType="member">
+		UPDATE Promotion
+			SET promotionComment = #{promotionComment}
+				WHERE promotionseq = #{promotionseq}
+		
+	</update>
+	
+	
+</mapper>
+

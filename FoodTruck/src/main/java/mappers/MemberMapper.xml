@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="ApplyDAO">
+	<select id="foodTruckZone3" resultType="member">
+		SELECT * FROM applyzone
+	</select>
+	
+	<insert id="insertReservation" parameterType="member">
+		INSERT INTO reservation(reservationSeq, reservationTitle, reservationDate, reservationPhone, reservationEmail, reservationMarkZone )
+				VALUES( reservationSeq_seq.nextval, #{reservationTitle}, #{reservationDate}, #{reservationPhone}, #{reservationEmail}, #{reservationMarkZone})
+	</insert>
+	
+	<select id="weather" resultType="member">
+		SELECT * FROM applyzone
+	</select>
+	
+	<select id="chartC" parameterType="member" resultType="member" >
+		SELECT * FROM reservation WHERE reservationdate >= SYSDATE AND RESERVATIONMARKZONE = #{reservationMarkZone} ORDER by reservationdate asc
+	</select>
+	
+	
+	<select id="chartW" parameterType="member" resultType="member" >
+		SELECT * FROM reservation WHERE reservationdate >= SYSDATE AND RESERVATIONMARKZONE = #{reservationMarkZone} ORDER by reservationdate asc
+	</select>
+	
+</mapper> 
+
+
+
+	

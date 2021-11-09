@@ -1,0 +1,10 @@
+document.write('<!-- Favicon -->');
+document.write('<link rel="shortcut icon" href="../resources/static/images/favicon.ico" />');
+document.write('<!-- Bootstrap CSS -->');
+document.write('<link rel="stylesheet" href="../resources/static/css/bootstrap.min.css">');
+document.write('<!-- Typography CSS -->');
+document.write('<link rel="stylesheet" href="../resources/static/css/typography.css">');
+document.write('<!-- Style CSS -->');
+document.write('<link rel="stylesheet" href="../resources/static/css/style.css">');
+document.write('<!-- Responsive CSS -->');
+document.write('<link rel="stylesheet" href="../resources/static/css/responsive.css">');

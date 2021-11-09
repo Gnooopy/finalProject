@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MyfeedDAO">
+	<insert id="insertFeeed" parameterType="member">
+		INSERT INTO feedcontent 
+		(feedSeq,feedWriter,feedContent,feedDate
+		<if test="feedContent_photo !=null">
+	        ,feedContent_photo
+	    </if>
+		) values(
+		feedSeq.nextval,#{userId},#{feedContent},sysdate
+		<if test="feedContent_photo != null">
+	         ,#{feedContent_photo}
+	    </if>    
+		)
+	</insert>
+	
+	<!-- 댓글 인설트 -->
+	<insert id="feedCommentInsert" parameterType="member">
+		INSERT INTO feedcomment 
+		values(#{feedSeq},commentSeq.nextval,#{userId},#{commentCont},sysdate)
+	</insert>
+	
+	<update id="commentcnt" parameterType="member">
+		UPDATE feedcontent
+ 	   		SET feedcommentcnt = (SELECT COUNT(*) as cnt
+  									FROM feedcontent F ,feedcomment C 
+  			  							WHERE F.FEEDSEQ = C.FEEDSEQ and F.FEEDSEQ = #{feedSeq}) 
+       
+ 	  			 WHERE feedSeq = #{feedSeq}
+	</update>
+	
+	 <select id="ListFeed" parameterType="member" resultType="member">
+ 	SELECT f.feedSeq , r.userId,f.feedContent,f.feedContent_photo,f.feedCommentCnt,f.feedDate,r.userNick,r.userPhoto
+ 	 		FROM feedcontent f , registeragtion r 
+ 	 			WHERE r.userId=#{userId}
+       				 ORDER BY feedSeq DESC
+ 	</select>
+ 	
+ 	<select id="selectFeed" parameterType="member" resultType="member">
+ 	SELECT * FROM feedcontent
+ 		WHERE feedSeq = #{feedSeq}
+ 		
+ 	
+ 	</select>
+ 	
+ 	<update id="updateFeed" parameterType="member">
+ 		UPDATE feedcontent
+ 	   		SET feedContent = #{feedContent}
+ 	   		 <if test="feedContent_photo != null">
+ 	   			,feedContent_photo = #{feedContent_photo}
+ 	   		 </if>
+ 	   		
+ 	  			 WHERE feedSeq = #{feedSeq}
+ 	
+ 	</update>
+ 	
+ 	<update id="deletPhoto" parameterType="member">
+ 		UPDATE feedcontent
+ 	   		SET feedContent_photo = null
+ 	  			 WHERE feedSeq = #{feedSeq}
+ 	
+ 	</update>
+ 	
+ 	<delete id="deleteFeed" parameterType="member">
+ 			DELETE 
+ 	 			FROM feedcontent
+ 	 				WHERE feedSeq = #{feedSeq}
+ 	</delete>
+ 	
+ 	<delete id="deleteComment" parameterType="member">
+ 			DELETE 
+ 	 			FROM feedcomment
+ 	 				WHERE feedSeq = #{feedSeq}
+ 	 				
+ 	</delete>
+ 	
+ 	<delete id="deleteOneComm" parameterType="member">
+ 			DELETE 
+ 	 			FROM feedcomment
+ 	 				WHERE feedSeq = #{feedSeq} AND commentSeq = #{commentSeq}
+ 	 				
+ 	</delete>
+ 	
+ 	
+ 	
+
+ 	
+ 	<select id="seqSelect" parameterType="member" resultType="member">
+ 		select 
+ 			distinct feedSeq AS feedSeq
+ 				from feedcontent 
+ 					WHERE feedWriter=#{userId}
+ 					ORDER BY feedSeq DESC
+ 					
+ 	
+ 	
+ 	</select>
+
+	<select id="Listtest" parameterType="hashMap" resultType="member">
+		SELECT *  
+  			FROM feedcontent F ,feedcomment C ,registeragtion r
+  			  WHERE F.FEEDSEQ = C.FEEDSEQ(+) and F.FEEDSEQ = #{str} and c.commentWriter=r.userid(+)
+  			 	 ORDER BY commentseq DESC
+	</select>
+
+
+</mapper>        

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+
+<mapper namespace="MyProfileDAO">
+	<insert id="inserttruck" parameterType="member">
+		insert into addtruck 
+  			values(#{userId},#{truckContent},#{truckName},#{truckNum})		
+	</insert>
+	
+	<update id="userChk" parameterType="member" >
+		update registeragtion
+  			 set userChk = 2
+      			where userId = #{userId}
+	</update>
+	
+	<update id="ChangeInfo" parameterType="member" >
+		update registeragtion
+  			 set userNick = #{userNick} ,userEmail=#{userEmail} , userPhone=#{userPhone} 
+  			 <if test="userPhoto != null">
+  			 ,userPhoto=#{userPhoto}
+  			 </if>
+      			where userId = #{userId}
+	</update>
+</mapper>        

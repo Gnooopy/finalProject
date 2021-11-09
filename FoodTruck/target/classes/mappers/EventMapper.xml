@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="EventDAO">
+
+	<insert id="insertEvent" parameterType="member">
+		INSERT INTO Event(
+			eventseq,userId,eventTitle,eventContent,eventmm,eventdd
+			<if test="eventContent_photo != null">
+				,eventContent_photo
+			</if>
+			)
+		VALUES(
+			Event_seq.nextval,#{userId},#{eventTitle},#{eventContent},#{eventmm},#{eventdd}
+			<if test="eventContent_photo != null">
+				,#{eventContent_photo}
+			</if>
+			)
+	</insert>
+
+	<select id="getEventList" resultType="member">
+		select *
+		from Event
+		ORDER BY eventseq ASC
+	</select>
+	
+	<select id="getEventList2" parameterType="member" resultType="member">
+			select * from Event
+ 					 where  eventseq = #{eventseq} 
+				
+	</select>
+	
+	<update id="UpdateEvent" parameterType="member">
+		UPDATE Event
+			SET eventTitle = #{eventTitle},  eventContent = #{eventContent},  eventmm = #{eventmm},  eventdd = #{eventdd}
+				WHERE eventseq = #{eventseq}
+	</update>
+	
+	<delete id="deleteEvent" parameterType="member">
+		DELETE FROM Event
+			WHERE eventseq = #{eventseq}
+	</delete>
+	
+	
+	
+<!-- 	<insert id="insertEventComment" parameterType="member"> -->
+<!-- 		INSERT INTO Eventcomment (eventcommentSeq, eventcommentWriter, eventcommentContent, eventrequestseq, eventcommentCnt) -->
+<!-- 			VALUES (eventcommentSeq_seq.nextval, #{eventcommentWriter}, #{eventcommentContent}, #{eventrequestseq}, #{eventcommentCnt}) -->
+<!-- 	</insert> -->
+	
+<!-- 	<delete id="deleteEventComment" parameterType="member"> -->
+<!-- 		DELETE FROM Eventcomment -->
+<!-- 			WHERE eventcommentSeq = #{eventcommentSeq} -->
+<!-- 	</delete> -->
+	
+<!-- 	<select id="getEventCommentList" parameterType="member" resultType="member"> -->
+<!-- 				select * from Event e, Eventcomment c -->
+<!--  					 where e.eventseq = c.eventrequestseq(+) and e.eventseq = #{eventseq} -->
+<!-- 	</select> -->
+	
+	
+	
+	
+</mapper>

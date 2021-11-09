@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LoginDAO">
+
+	<insert id="userInsert" parameterType="member">
+		INSERT INTO registeragtion 
+		(userId,userPass,userName,userNick,userPhone,userEmail)
+		VALUES (#{userId},#{userPass},#{userName},#{userNick},#{userPhone},#{userEmail})
+	</insert>
+
+	<select id="loginChk" parameterType="member" resultType="member">
+		SELECT * FROM registeragtion WHERE
+		<if test="userId !=null">
+			userid= #{userId} 
+		</if>
+		<if test="userPass !=null">
+			and userpass=#{userPass}
+		</if>
+		<if test="userNick !=null">
+			usernick=#{userNick} 
+
+		</if>
+		<if test="userEmail !=null">
+			useremail=#{userEmail} 
+		</if>
+
+	</select>
+
+	<select id="emailChk" parameterType="member" resultType="member">
+		SELECT *
+		FROM registeragtion
+		WHERE userid= #{userId} and userEmail=#{userEmail}
+	</select>
+	<select id="truckadd" parameterType="member" resultType="member" >
+  			SELECT * FROM registeragtion r , addtruck k
+  				WHERE
+			r.userId=#{userId} and r.userid=k.userid(+)
+	</select>
+	
+	<select id="mainList" resultType="member">
+ SELECT t.eventseq , t.eventdate,t.eventContent  , t.userId  ,t.eventContent_photo,r.userNick ,r.userPhoto
+    FROM (SELECT eventseq , eventdate,eventContent  , userId  ,eventContent_photo
+    FROM event 
+     union all
+SELECT feedSeq,feedDate,feedContent,feedWriter ,feedContent_photo
+  FROM feedcontent) t, registeragtion r 
+      where t.USERID = r.USERID
+  ORDER BY eventdate DESC
+	
+	</select>
+	<update id="userCount" parameterType="member">
+	  update registeragtion
+ 		   set userCount =userCount+1 
+     			 where userId = #{userId}  
+	</update>
+	
+	<select id="CountList" resultType="member" >
+		SELECT *
+			FROM registeragtion 
+				 ORDER BY userCount desc
+	</select>
+	
+	
+
+</mapper> 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FestivalDAO">
+	<select id="getFestivalList" resultType="member">
+		SELECT *
+			FROM festival ORDER BY festivalSeq DESC
+	</select>
+	
+	<select id="getFestival" parameterType="member" resultType="member">
+		SELECT *
+			FROM festival 
+				WHERE festivalSeq = #{festivalSeq}
+	</select>
+	
+	<insert id="insertFestival" parameterType="member">
+		INSERT INTO festival (festivalSeq, festivalWriter, festivalTitle, festivalContent, festivalDate, festivalContentdate)
+			VALUES (festival_seq.nextval, #{festivalWriter}, #{festivalTitle}, #{festivalContent}, #{festivalDate}, sysdate)
+	</insert>
+	
+	<update id="updateFestival" parameterType="member">
+		UPDATE festival
+			SET festivalTitle = #{festivalTitle}, festivalContent = #{festivalContent}, festivalDate = #{festivalDate}
+				WHERE festivalSeq = #{festivalSeq}	
+	</update>
+	
+	<delete id="deleteFestival" parameterType="member">
+		DELETE FROM festival
+			WHERE festivalSeq = #{festivalSeq}
+	</delete>
+	
+	
+	
+	
+	<select id="getCommentList" parameterType="member" resultType="member">
+		SELECT *
+			FROM festivalcomment
+				WHERE festivalSeq = #{festivalSeq} ORDER BY fcommentSeq DESC
+	</select>
+	
+	<insert id="insertComment" parameterType="member">
+		INSERT INTO festivalcomment (fcommentSeq, fcommentWriter, fcommentContent, festivalSeq)
+			VALUES (festivalcomment_seq.nextval, #{fcommentWriter}, #{fcommentContent}, #{festivalSeq})
+	</insert>
+	
+	<delete id="deleteComment" parameterType="member">
+		DELETE FROM festivalcomment
+			WHERE fcommentSeq = #{fcommentSeq}
+	</delete>
+	
+</mapper>
